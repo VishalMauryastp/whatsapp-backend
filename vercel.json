@@ -13,7 +13,7 @@
     }
   ],
   "routes": [
-    { "src": "/api/sendMessage", "dest": "/server.js" },
+    { "src": "/api/sendMessage", "dest": "/index.js" },
     { "handle": "filesystem" }
   ],
 
