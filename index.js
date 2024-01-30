@@ -10,7 +10,8 @@ const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
+// mount public folder
+app.use("/", express.static("public"));
 
 // multer
 
@@ -32,7 +33,7 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
   const { phone, selectedOption, message, caption } = req.body;
 
   const liveUrl = req.file
-    ? `https://whatsapp-backend-bvtk21cdq-vishalmauryastp.vercel.app/public/${req.file.filename}`
+    ? `https://whatsapp-backend-bvtk21cdq-vishalmauryastp.vercel.app/${req.file.filename}`
     : null;
 
   console.log("Received message data:", {
@@ -65,26 +66,26 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
     };
   }
 
-  const url = "https://graph.facebook.com/v18.0/239423185911953/messages";
-  const accessToken =
-    "EAAQ4gWEoyicBO3pgpJZAGaLrHoAAmjyNEiP4bZAcNb7afXlRoBR7oMEg2bvFTUbIM8dwoe2TQkZBuFU3k6rtJvdpTyCLRq5zlCgzZApaKq2YnTwPbZAveD9OmTXQDgUHBtVqk9d6yz6ALLH4t32FjWnZCb4fiYjoNEnZBFW6uvNzZAqYoZAzDWQ5vftR2erhWSoktbugz0xxO5luGfKPmDKclfcBuEs9fl8W14w0ZD";
+  // const url = "https://graph.facebook.com/v18.0/239423185911953/messages";
+  // const accessToken =
+  //   "EAAQ4gWEoyicBO3pgpJZAGaLrHoAAmjyNEiP4bZAcNb7afXlRoBR7oMEg2bvFTUbIM8dwoe2TQkZBuFU3k6rtJvdpTyCLRq5zlCgzZApaKq2YnTwPbZAveD9OmTXQDgUHBtVqk9d6yz6ALLH4t32FjWnZCb4fiYjoNEnZBFW6uvNzZAqYoZAzDWQ5vftR2erhWSoktbugz0xxO5luGfKPmDKclfcBuEs9fl8W14w0ZD";
 
-  const headers = {
-    Authorization: `Bearer ${accessToken}`,
-    "Content-Type": "application/json",
-  };
+  // const headers = {
+  //   Authorization: `Bearer ${accessToken}`,
+  //   "Content-Type": "application/json",
+  // };
 
-  axios
-    .post(url, data, { headers })
-    .then((response) => {
-      console.log("Response:", response.data);
-    })
-    .catch((error) => {
-      console.error(
-        "Error:",
-        error.response ? error.response.data : error.message
-      );
-    });
+  // axios
+  //   .post(url, data, { headers })
+  //   .then((response) => {
+  //     console.log("Response:", response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.error(
+  //       "Error:",
+  //       error.response ? error.response.data : error.message
+  //     );
+  //   });
 
   res.json({ success: true, message:liveUrl });
 });
