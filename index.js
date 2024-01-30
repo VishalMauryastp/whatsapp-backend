@@ -31,7 +31,7 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
   const { phone, selectedOption, message, caption } = req.body;
 
   const liveUrl = req.file
-    ? `http://localhost:3001/public/${req.file.filename}`
+    ? `https://whatsapp-backend-bvtk21cdq-vishalmauryastp.vercel.app/public/${req.file.filename}`
     : null;
 
   console.log("Received message data:", {
@@ -41,68 +41,68 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
     caption,
   });
 
-//   const data =
-//     selectedOption === "text"
-//       ? {
-//           messaging_product: "whatsapp",
-//           to: phone,
-//           type: "text",
-//           text: {
-//             body: message,
-//           },
-//         }
-//       : selectedOption === "image"
-//       ? {
-//           messaging_product: "whatsapp",
-//           to: phone,
-//           type: "image",
-//           image: {
-//             link: message,
-//             caption: caption,
-//           },
-//         }
-//       : selectedOption === "video"
-//       ? {
-//           messaging_product: "whatsapp",
-//           to: phone,
-//           type: "video",
-//           video: {
-//             link: message,
-//             caption: caption,
-//           },
-//         }
-//       : selectedOption === "document"
-//       ? {
-//           messaging_product: "whatsapp",
-//           to: phone,
-//           type: "document",
-//           document: {
-//             link: message,
-//             caption: caption,
-//           },
-//         }
-//       : null;
+  const data =
+    selectedOption === "text"
+      ? {
+          messaging_product: "whatsapp",
+          to: phone,
+          type: "text",
+          text: {
+            body: message,
+          },
+        }
+      : selectedOption === "image"
+      ? {
+          messaging_product: "whatsapp",
+          to: phone,
+          type: "image",
+          image: {
+            link: liveUrl,
+            caption: caption,
+          },
+        }
+      : selectedOption === "video"
+      ? {
+          messaging_product: "whatsapp",
+          to: phone,
+          type: "video",
+          video: {
+            link: liveUrl,
+            caption: caption,
+          },
+        }
+      : selectedOption === "document"
+      ? {
+          messaging_product: "whatsapp",
+          to: phone,
+          type: "document",
+          document: {
+            link: liveUrl,
+            caption: caption,
+          },
+        }
+      : null;
 
-//   const url = "https://graph.facebook.com/v18.0/239423185911953/messages";
-//   const accessToken =
-//     "EAAQ4gWEoyicBO3pgpJZAGaLrHoAAmjyNEiP4bZAcNb7afXlRoBR7oMEg2bvFTUbIM8dwoe2TQkZBuFU3k6rtJvdpTyCLRq5zlCgzZApaKq2YnTwPbZAveD9OmTXQDgUHBtVqk9d6yz6ALLH4t32FjWnZCb4fiYjoNEnZBFW6uvNzZAqYoZAzDWQ5vftR2erhWSoktbugz0xxO5luGfKPmDKclfcBuEs9fl8W14w0ZD";
+  const url = "https://graph.facebook.com/v18.0/239423185911953/messages";
+  const accessToken =
+    "EAAQ4gWEoyicBO3pgpJZAGaLrHoAAmjyNEiP4bZAcNb7afXlRoBR7oMEg2bvFTUbIM8dwoe2TQkZBuFU3k6rtJvdpTyCLRq5zlCgzZApaKq2YnTwPbZAveD9OmTXQDgUHBtVqk9d6yz6ALLH4t32FjWnZCb4fiYjoNEnZBFW6uvNzZAqYoZAzDWQ5vftR2erhWSoktbugz0xxO5luGfKPmDKclfcBuEs9fl8W14w0ZD";
 
-//   const headers = {
-//     Authorization: `Bearer ${accessToken}`,
-//     "Content-Type": "application/json",
-//   };
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+    "Content-Type": "application/json",
+  };
 
-//   axios
-//     .post(url, data, { headers })
-//     .then((response) => {
-//       console.log("Response:", response.data);
-//     })
-//     .catch((error) => {
-//       console.error(
-//         "Error:",
-//         error.response ? error.response.data : error.message
-//       );
-//     });
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      console.log("Response:", response.data);
+    })
+    .catch((error) => {
+      console.error(
+        "Error:",
+        error.response ? error.response.data : error.message
+      );
+    });
 
   res.json({ success: true, message:liveUrl });
 });
