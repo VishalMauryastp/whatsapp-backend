@@ -41,47 +41,70 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
     caption,
   });
 
-  const data =
-    selectedOption === "text"
-      ? {
-          messaging_product: "whatsapp",
-          to: phone,
-          type: "text",
-          text: {
-            body: message,
-          },
-        }
-      : selectedOption === "image"
-      ? {
-          messaging_product: "whatsapp",
-          to: phone,
-          type: "image",
-          image: {
-            link: liveUrl,
-            caption: caption,
-          },
-        }
-      : selectedOption === "video"
-      ? {
-          messaging_product: "whatsapp",
-          to: phone,
-          type: "video",
-          video: {
-            link: liveUrl,
-            caption: caption,
-          },
-        }
-      : selectedOption === "document"
-      ? {
-          messaging_product: "whatsapp",
-          to: phone,
-          type: "document",
-          document: {
-            link: liveUrl,
-            caption: caption,
-          },
-        }
-      : null;
+  // const data =
+  //   selectedOption === "text"
+  //     ? {
+  //         messaging_product: "whatsapp",
+  //         to: phone,
+  //         type: "text",
+  //         text: {
+  //           body: message,
+  //         },
+  //       }
+  //     : selectedOption === "image"
+  //     ? {
+  //         messaging_product: "whatsapp",
+  //         to: phone,
+  //         type: "image",
+  //         image: {
+  //           link: liveUrl,
+  //           caption: caption,
+  //         },
+  //       }
+  //     : selectedOption === "video"
+  //     ? {
+  //         messaging_product: "whatsapp",
+  //         to: phone,
+  //         type: "video",
+  //         video: {
+  //           link: liveUrl,
+  //           caption: caption,
+  //         },
+  //       }
+  //     : selectedOption === "document"
+  //     ? {
+  //         messaging_product: "whatsapp",
+  //         to: phone,
+  //         type: "document",
+  //         document: {
+  //           link: liveUrl,
+  //           caption: caption,
+  //         },
+  //       }
+  //     : null;
+
+  let data = null;
+
+  if (selectedOption === "text") {
+    data = {
+      messaging_product: "whatsapp_business",
+      to: phone,
+      type: "text",
+      text: {
+        body: message,
+      },
+    };
+  } else if (selectedOption === "image" || selectedOption === "video" || selectedOption === "document") {
+    data = {
+      messaging_product: "whatsapp_business",
+      to: phone,
+      type: selectedOption,
+      [selectedOption]: {
+        link: liveUrl,
+        caption: caption,
+      },
+    };
+  }
 
   const url = "https://graph.facebook.com/v18.0/239423185911953/messages";
   const accessToken =
