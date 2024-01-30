@@ -12,10 +12,7 @@
       "destination": "/index.js"
     }
   ],
-  "routes": [
-    { "src": "/api/sendMessage", "dest": "/index.js" },
-    { "handle": "filesystem" }
-  ],
+
 
   "headers": [
     {
