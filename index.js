@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-const axios = require("axios")
+const axios = require("axios");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -11,7 +11,10 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(cors());
 // mount public folder
-app.use("/", express.static("public"));
+// app.use("/", express.static("public"));
+
+
+app.use("/static", express.static(path.join(__dirname, "public")));
 
 // multer
 
@@ -87,7 +90,7 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
   //     );
   //   });
 
-  res.json({ success: true, message:liveUrl });
+  res.json({ success: true, message: liveUrl });
 });
 
 app.listen(port, () => {
