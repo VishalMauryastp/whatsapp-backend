@@ -33,7 +33,7 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
   const { phone, selectedOption, message, caption } = req.body;
 
   const liveUrl = req.file
-    ? `https://whatsapp-backend-bvtk21cdq-vishalmauryastp.vercel.app/${req.file.filename}`
+    ? `https://whatsapp-backend-blue.vercel.app/${req.file.filename}`
     : null;
 
   console.log("Received message data:", {
