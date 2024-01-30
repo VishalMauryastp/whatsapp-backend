@@ -10,6 +10,7 @@ const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // multer
 
@@ -40,48 +41,6 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
     message,
     caption,
   });
-
-  // const data =
-  //   selectedOption === "text"
-  //     ? {
-  //         messaging_product: "whatsapp",
-  //         to: phone,
-  //         type: "text",
-  //         text: {
-  //           body: message,
-  //         },
-  //       }
-  //     : selectedOption === "image"
-  //     ? {
-  //         messaging_product: "whatsapp",
-  //         to: phone,
-  //         type: "image",
-  //         image: {
-  //           link: liveUrl,
-  //           caption: caption,
-  //         },
-  //       }
-  //     : selectedOption === "video"
-  //     ? {
-  //         messaging_product: "whatsapp",
-  //         to: phone,
-  //         type: "video",
-  //         video: {
-  //           link: liveUrl,
-  //           caption: caption,
-  //         },
-  //       }
-  //     : selectedOption === "document"
-  //     ? {
-  //         messaging_product: "whatsapp",
-  //         to: phone,
-  //         type: "document",
-  //         document: {
-  //           link: liveUrl,
-  //           caption: caption,
-  //         },
-  //       }
-  //     : null;
 
   let data = null;
 
