@@ -43,28 +43,28 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
     caption,
   });
 
-  let data = null;
+  // let data = null;
 
-  if (selectedOption === "text") {
-    data = {
-      messaging_product: "whatsapp_business",
-      to: phone,
-      type: "text",
-      text: {
-        body: message,
-      },
-    };
-  } else if (selectedOption === "image" || selectedOption === "video" || selectedOption === "document") {
-    data = {
-      messaging_product: "whatsapp_business",
-      to: phone,
-      type: selectedOption,
-      [selectedOption]: {
-        link: liveUrl,
-        caption: caption,
-      },
-    };
-  }
+  // if (selectedOption === "text") {
+  //   data = {
+  //     messaging_product: "whatsapp_business",
+  //     to: phone,
+  //     type: "text",
+  //     text: {
+  //       body: message,
+  //     },
+  //   };
+  // } else if (selectedOption === "image" || selectedOption === "video" || selectedOption === "document") {
+  //   data = {
+  //     messaging_product: "whatsapp_business",
+  //     to: phone,
+  //     type: selectedOption,
+  //     [selectedOption]: {
+  //       link: liveUrl,
+  //       caption: caption,
+  //     },
+  //   };
+  // }
 
   // const url = "https://graph.facebook.com/v18.0/239423185911953/messages";
   // const accessToken =
