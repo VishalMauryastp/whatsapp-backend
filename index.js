@@ -32,7 +32,7 @@ const upload = multer({ storage: storage });
 app.get("/api/sendMessage", (req, res) => {
   res.send(`<h1>APi is working </h1>`);
 });
-app.post("/api/sendMessage", upload.single("image"), (req, res) => {
+app.post("/api/sendMessage", upload.single("file"), (req, res) => {
   const { phone, selectedOption, message, caption,image } = req.body;
 
   const liveUrl = req.file
@@ -47,11 +47,11 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
 
   });
 
-  // let data = null;
+  // let data 
 
   // if (selectedOption === "text") {
   //   data = {
-  //     messaging_product: "whatsapp_business",
+  //     messaging_product: "whatsapp",
   //     to: phone,
   //     type: "text",
   //     text: {
@@ -60,7 +60,7 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
   //   };
   // } else if (selectedOption === "image" || selectedOption === "video" || selectedOption === "document") {
   //   data = {
-  //     messaging_product: "whatsapp_business",
+  //     messaging_product: "whatsapp",
   //     to: phone,
   //     type: selectedOption,
   //     [selectedOption]: {
@@ -72,7 +72,7 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
 
   // const url = "https://graph.facebook.com/v18.0/239423185911953/messages";
   // const accessToken =
-  //   "EAAQ4gWEoyicBO3pgpJZAGaLrHoAAmjyNEiP4bZAcNb7afXlRoBR7oMEg2bvFTUbIM8dwoe2TQkZBuFU3k6rtJvdpTyCLRq5zlCgzZApaKq2YnTwPbZAveD9OmTXQDgUHBtVqk9d6yz6ALLH4t32FjWnZCb4fiYjoNEnZBFW6uvNzZAqYoZAzDWQ5vftR2erhWSoktbugz0xxO5luGfKPmDKclfcBuEs9fl8W14w0ZD";
+  //   "EAAQ4gWEoyicBO4IZA1YcUwqAUzH1Um0gS2w7dSpuu4T2GEBJrw5Nm1WrpDZAmZCWu4l05QUlamRhgSoksy1EFsUVZA3nvGnnHX6zQTaxg46GzubEHqP7ZCNhjh2UrKjcp2zPJyWoRmvb9nnOvg9w7AQGGoZA1e3ZAvZCw8UR7mtb3pg7DFXiEZAC8a0QksmvYnDx4jjSAe7E1xZAuUi6GDRqoTql3OyPKXvDKPqOwZD";
 
   // const headers = {
   //   Authorization: `Bearer ${accessToken}`,
@@ -83,6 +83,7 @@ app.post("/api/sendMessage", upload.single("image"), (req, res) => {
   //   .post(url, data, { headers })
   //   .then((response) => {
   //     console.log("Response:", response.data);
+  //     res.json({ success: true, message: response });
   //   })
   //   .catch((error) => {
   //     console.error(
