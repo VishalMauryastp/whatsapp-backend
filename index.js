@@ -105,18 +105,18 @@ app.use(express.static(path.join(__dirname, "public")));
 // File upload route
 app.post("/upload", async (req, res) => {
   try {
-    if (!req.files || Object.keys(req.files).length === 0) {
+    if (!req?.files || Object.keys(req?.files).length === 0) {
       return res.status(400).send("No files were uploaded.");
     }
 
     // const file = await req?.files.image;
-    const file = req.files && req.files.image;
+    const file = req?.files && req?.files?.image;
 
     if (!file) {
       return res.status(400).send("No files were uploaded.");
     }
 
-    const shortFileName = generateShortFileName(file.name);
+    const shortFileName = generateShortFileName(file?.name);
     const uploadPath = path.join(__dirname, "public", shortFileName);
 
     file.mv(uploadPath, (err) => {
