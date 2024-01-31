@@ -85,11 +85,11 @@
 //   console.log(`Server is running on http://localhost:${port}`);
 // });
 
-const express = require('express');
-const fileUpload = require('express-fileupload');
-const path = require('path');
-const cors = require('cors');
-const { v4: uuidv4 } = require('uuid');
+const express = require("express");
+const fileUpload = require("express-fileupload");
+const path = require("path");
+const cors = require("cors");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 const port = 3001;
@@ -99,18 +99,25 @@ app.use(cors());
 app.use(fileUpload());
 
 // Serve static files from the public folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // File upload route
-app.post('/upload', (req, res) => {
+app.post("/upload", async (req, res) => {
   try {
     if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).send('No files were uploaded.');
+      return res.status(400).send("No files were uploaded.");
     }
 
-    const file = req.files.image;
+    // const file = await req?.files.image;
+    const file = req.files && req.files.image;
+
+    if (!file) {
+      return res.status(400).send("No files were uploaded.");
+    }
+
     const shortFileName = generateShortFileName(file.name);
-    const uploadPath = path.join(__dirname, 'public', shortFileName);
+    const uploadPath = path.join(__dirname, "public", shortFileName);
 
     file.mv(uploadPath, (err) => {
       if (err) {
@@ -120,9 +127,12 @@ app.post('/upload', (req, res) => {
       const fileUrl = `https://whatsapp-backend-blue.vercel.app/${shortFileName}`;
       res.send({ fileName: shortFileName, fileUrl });
     });
+
+    //
+
   } catch (err) {
-    console.error('Error handling file upload:', err);
-    res.status(500).send('Internal Server Error');
+    console.error("Error handling file upload:", err);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -135,5 +145,3 @@ function generateShortFileName(originalFileName) {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
-
