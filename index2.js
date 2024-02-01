@@ -42,6 +42,8 @@ app.post("/api/sendMessage", async (req, res) => {
     uploadedImgUrl
   });
 
+  
+
   // let data;
 
   // if (selectedOption === "text") {
